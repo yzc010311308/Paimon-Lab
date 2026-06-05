@@ -24,9 +24,28 @@
 
 ## 使用方式
 
-1. 将 `.trae/skills/` 目录复制到你的 Trae IDE 项目根目录
-2. 在 Trae IDE 中通过 `@技能名` 或 `/skill 技能名` 调用角色
-3. 也可以直接对 AI 说「以钟离的口吻回答」
+### Trae IDE（原生支持）
+将 `.trae/skills/` 目录复制到你的 Trae IDE 项目根目录，通过 `@技能名` 或 `/skill 技能名` 调用角色。
+
+### 其他 AI Agent / IDE
+本项目提供自动转换脚本，一键生成多种平台格式：
+
+```bash
+python converters/convert.py prompts    # 纯 Markdown Prompt（通用 Agent）
+python converters/convert.py claude     # Claude Projects 格式
+python converters/convert.py gpts       # ChatGPT GPTs 配置（JSON）
+python converters/convert.py cursor     # Cursor Rules 格式
+```
+
+| 目录 | 用途 |
+|------|------|
+| `prompts/` | 纯 Markdown 角色 Prompt，适合复制到任何 Agent 的 System Prompt |
+| `output/claude/` | Claude Projects 可导入格式 |
+| `output/gpts/gpts_roles.json` | 109 个角色的 GPTs 配置，可批量导入 ChatGPT |
+| `output/cursor_rules/` | Cursor IDE 的 `.cursor/rules/` 格式 |
+
+### 直接使用（所有平台通用）
+直接对 AI 说「以钟离的口吻回答」，然后从 `prompts/` 里找到对应角色的内容粘贴即可。
 
 ## 角色列表
 
