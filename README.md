@@ -24,28 +24,98 @@
 
 ## 使用方式
 
-### Trae IDE（原生支持）
-将 `.trae/skills/` 目录复制到你的 Trae IDE 项目根目录，通过 `@技能名` 或 `/skill 技能名` 调用角色。
+### 1. Trae IDE（原生支持）
 
-### 其他 AI Agent / IDE
-本项目提供自动转换脚本，一键生成多种平台格式：
+Trae IDE 直接读取 `.trae/skills/` 目录，无需额外配置：
 
-```bash
-python converters/convert.py prompts    # 纯 Markdown Prompt（通用 Agent）
-python converters/convert.py claude     # Claude Projects 格式
-python converters/convert.py gpts       # ChatGPT GPTs 配置（JSON）
-python converters/convert.py cursor     # Cursor Rules 格式
+```
+1. 将整个项目（或 .trae/skills/ 目录）复制到你的 Trae IDE 工作目录
+2. 在对话中输入 @钟离 或 /skill zhongli
+3. 也可以直接说「以派蒙的口吻回答」
 ```
 
-| 目录 | 用途 |
-|------|------|
-| `prompts/` | 纯 Markdown 角色 Prompt，适合复制到任何 Agent 的 System Prompt |
-| `output/claude/` | Claude Projects 可导入格式 |
-| `output/gpts/gpts_roles.json` | 109 个角色的 GPTs 配置，可批量导入 ChatGPT |
-| `output/cursor_rules/` | Cursor IDE 的 `.cursor/rules/` 格式 |
+### 2. ChatGPT / 网页版 / 移动端
 
-### 直接使用（所有平台通用）
-直接对 AI 说「以钟离的口吻回答」，然后从 `prompts/` 里找到对应角色的内容粘贴即可。
+**方法 A：粘贴 Prompt（最通用）**
+
+```
+1. 打开 prompts/ 目录，找到对应角色文件（如 prompts/zhongli.md）
+2. 复制全部内容
+3. 在 ChatGPT 对话中粘贴，发送后 AI 将进入角色扮演模式
+```
+
+**方法 B：创建 GPTs（一次配置，永久使用）**
+
+```
+1. 打开 ChatGPT → 探索 GPTs → 创建
+2. Instructions 中粘贴 prompts/zhongli.md 的完整内容
+3. Name 填写角色名（如「钟离」）
+4. 保存，之后随时通过 @钟离 调用
+```
+
+> 提示：`output/gpts/gpts_roles.json` 包含全部 109 个角色的 GPTs 配置，可配合 API 或批量导入工具使用。
+
+### 3. Claude / Claude Projects
+
+**方法 A：直接粘贴**
+
+```
+1. 打开 prompts/ 目录，复制对应角色内容
+2. 粘贴到 Claude 对话中，AI 将进入角色扮演模式
+```
+
+**方法 B：Claude Projects（推荐）**
+
+```
+1. 创建 Claude Project
+2. 在 Project Knowledge 中上传 output/claude/ 下的文件
+3. 在 System Prompt 中写："你是{角色名}，请完全按照 Project Knowledge 中的角色设定说话"
+4. 此后在此 Project 中每次对话都是该角色
+```
+
+### 4. Cursor IDE
+
+```
+1. 将 output/cursor_rules/ 目录重命名为 .cursor/rules/ 并放入项目根目录
+2. 或者直接复制整个 output/cursor_rules/ 的内容到你的项目的 .cursor/rules/
+3. 在 Cursor 对话中通过 @规则名 或直接说「以钟离的口吻回答」
+```
+
+### 5. Cline / Roo Code / VS Code 插件类 Agent
+
+```
+1. 打开 prompts/ 目录，找到对应角色文件
+2. 复制全部内容到 Agent 的 Custom Instructions / System Prompt 设置中
+3. 之后在该 Agent 中对话即进入角色扮演模式
+```
+
+### 6. 其他支持 System Prompt 的 Agent
+
+几乎所有 AI Agent 都支持 System Prompt。通用步骤：
+
+```
+1. 从 prompts/ 中找到角色文件
+2. 粘贴到 System Prompt / Custom Instructions / 角色设定 区域
+3. 开始对话
+```
+
+### 自动转换
+
+修改 `.trae/skills/` 中的角色定义后，用以下脚本一键同步到所有平台格式：
+
+```bash
+python converters/convert.py prompts    # 纯 Markdown（全部 Agent 通用）
+python converters/convert.py claude     # Claude Projects
+python converters/convert.py gpts       # ChatGPT GPTs 配置
+python converters/convert.py cursor     # Cursor IDE Rules
+```
+
+| 输出目录 | 适用平台 | 文件数 |
+|----------|----------|--------|
+| `prompts/` | 全部 Agent（通用） | 109 `.md` |
+| `output/claude/` | Claude Projects | 109 `.md` |
+| `output/gpts/gpts_roles.json` | ChatGPT GPTs | 1 `.json` |
+| `output/cursor_rules/` | Cursor IDE | 109 `.mdc` |
 
 ## 角色列表
 
